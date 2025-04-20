@@ -18,5 +18,5 @@ app = FastAPI(lifespan=lifespan)
 async def root():
     return {"message": "Hello, World!"}
 
-app.include_router(router=EmailRouter, tags=["Email"], prefix="/email")
+app.include_router(router=EmailRouter, tags=["Email"], prefix="/emails")
 app.include_router(router=AuthRouter, tags=["Auth"], prefix="/auth")
