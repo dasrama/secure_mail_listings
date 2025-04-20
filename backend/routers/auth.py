@@ -4,12 +4,23 @@ from fastapi import APIRouter, Request, HTTPException
 from fastapi.responses import RedirectResponse
 from google.oauth2 import id_token
 from google.auth.transport import requests as google_requests
+from datetime import timedelta
+import jwt
 
 from backend.models.auth import GoogleToken
 from backend.config.settings import Settings
+from fastapi.responses import RedirectResponse
 
+
+FRONTEND_URL = "http://localhost:8501" 
 
 router = APIRouter()
+
+def create_access_token(email: str):
+    expire = datetime.now() + timedelta(hours=1)
+    payload = {"email": email, "exp": expire}
+    token = jwt.encode(payload, Settings().SECRET_KEY, algorithm="HS256")
+    return token
 
 @router.get("/login")
 def login_with_google():
@@ -37,7 +48,7 @@ async def google_auth_callback(request: Request):
     })
 
     tokens = token_resp.json()
-    print(tokens)
+    # print(tokens)
     access_token = tokens.get("access_token")
     id_token_str = tokens.get("id_token")
 
@@ -76,4 +87,8 @@ async def google_auth_callback(request: Request):
         )
         await token_doc.insert()
 
-    return {"msg": f"Token saved for {user_email}"}
+    jwt_token = create_access_token(user_email)
+
+    print(jwt_token)
+    print(user_email)
+    return RedirectResponse(url=f"{FRONTEND_URL}/?token={jwt_token}&email={user_email}")
