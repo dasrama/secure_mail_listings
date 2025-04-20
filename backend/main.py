@@ -3,6 +3,7 @@ from contextlib import asynccontextmanager
 
 from backend.config.config import initiate_database
 from backend.routers.email import router as EmailRouter
+from backend.routers.auth import router as AuthRouter
 
 
 @asynccontextmanager
@@ -18,3 +19,4 @@ async def root():
     return {"message": "Hello, World!"}
 
 app.include_router(router=EmailRouter, tags=["Email"], prefix="/email")
+app.include_router(router=AuthRouter, tags=["Auth"], prefix="/auth")

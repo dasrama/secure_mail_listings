@@ -6,6 +6,7 @@ from motor.motor_asyncio import AsyncIOMotorClient
 
 from backend.config.settings import Settings
 from backend.models.email import Email
+from backend.models.user import User
 
 
 class MongoClient:
@@ -17,7 +18,8 @@ class MongoClient:
         await init_beanie(
             database=self.db,
             document_models=[
-                Email
+                Email,
+                User
             ]
         )
 
