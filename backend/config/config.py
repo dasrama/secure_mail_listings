@@ -7,6 +7,7 @@ from motor.motor_asyncio import AsyncIOMotorClient
 from backend.config.settings import Settings
 from backend.models.email import Email
 from backend.models.user import User
+from backend.models.auth import GoogleToken
 
 
 class MongoClient:
@@ -19,7 +20,8 @@ class MongoClient:
             database=self.db,
             document_models=[
                 Email,
-                User
+                User, 
+                GoogleToken
             ]
         )
 

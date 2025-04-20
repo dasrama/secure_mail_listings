@@ -1,4 +1,6 @@
 from pydantic import BaseModel
+from beanie import Document
+from datetime import datetime
 from typing import Optional
 
 
@@ -8,3 +10,12 @@ class Token(BaseModel):
 
 class TokenData(BaseModel):
     id: Optional[int]
+
+class GoogleToken(Document):
+    email: str
+    access_token: str
+    refresh_token: Optional[str]
+    expires_in: int
+    token_type: str
+    scope: str
+    created_at: datetime
