@@ -1,4 +1,4 @@
-# 📧 Secure Email Listing
+# Secure Email Listing
 
 This project enables users to securely view their Gmail inbox with a seamless login process using Google OAuth2. After successful authentication, users can view emails and download any attachments directly from their inbox.
 
