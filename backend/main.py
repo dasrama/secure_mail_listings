@@ -16,7 +16,7 @@ app = FastAPI(lifespan=lifespan)
 
 @app.get("/")
 async def root():
-    return {"message": "Hello, World!"}
+    return {"message": "Working!"}
 
 app.include_router(router=EmailRouter, tags=["Email"], prefix="/emails")
 app.include_router(router=AuthRouter, tags=["Auth"], prefix="/auth")

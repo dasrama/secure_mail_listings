@@ -1,7 +1,7 @@
 import jwt
 from fastapi.security import OAuth2PasswordBearer
 from fastapi import HTTPException, status, Depends
-from jwt.exceptions import PyJWTError
+from jwt.exceptions import JWTException
 from datetime import datetime, timedelta
 
 from backend.models.auth import Token, TokenData
@@ -33,7 +33,7 @@ def verify_access_token(token: str, credential_exception) -> TokenData:
 
         token_data = TokenData(id=id) 
         return token_data
-    except PyJWTError:
+    except JWTException:
         raise credential_exception
 
 async def get_current_user(token: str = Depends(oauth_scheme)):
