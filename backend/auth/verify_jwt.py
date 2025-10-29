@@ -1,7 +1,7 @@
 import jwt
 from fastapi import HTTPException
 from backend.config.settings import Settings
-from jwt.exceptions import JWTException
+from jwt.exceptions import PyJWTError
 
 
 
@@ -14,5 +14,5 @@ def verify_jwt(token: str) -> str:
         return email
     except jwt.ExpiredSignatureError:
         raise HTTPException(status_code=401, detail="Token expired")
-    except JWTException:
+    except PyJWTError:
         raise HTTPException(status_code=401, detail="Invalid token")
